@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChatComponent } from './chat.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ChatComponent],
   template: `
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    <router-outlet />
+    <div class="h-screen w-full flex flex-col">
+      <header class="bg-blue-700 text-white p-4 text-xl font-bold shadow">Ollama Chat</header>
+      <main class="flex-1">
+        <app-chat />
+      </main>
+    </div>
   `,
   styles: [],
 })
