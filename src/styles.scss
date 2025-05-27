@@ -1,11 +1,63 @@
 @import "tailwindcss";
 
-/* You can add global styles to this file, and also import other style files */
+@tailwind utilities;
+
 html, body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
 }
 
+/*
+    Tailwind Typography-inspired heading styles
+*/
+
+h1 {
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5rem; /* 24px */
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+h5 {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+h6 {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}

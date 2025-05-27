@@ -1,45 +1,57 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {ChatMessage} from "./models";
 
 @Component({
-    selector: 'app-chat',
-    standalone: true,
-    imports: [NgIf, FormsModule],
-    templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.scss']
+  selector: 'app-chat',
+  standalone: true,
+  imports: [NgIf, FormsModule],
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
 
-    @Output() messageChange = new EventEmitter();
+  @Output() messageChange = new EventEmitter();
 
-    prompt = '';
-    loading = false;
+  prompt = '';
+  loading = false;
 
-    async sendMessage() {
-        if (!this.prompt.trim()) return;
+  instructions: string = 'Always return the result in nice looking markdown including headers, list, tables, pre, code.';
 
-        const userMsg = {role: 'user', content: this.prompt};
-        this.messageChange.emit(userMsg);
+  async sendMessage() {
+    if (!this.prompt.trim()) return;
 
-        this.loading = true;
+    this.messageChange.emit({role: 'user', content: {answer: this.prompt}, format: 'text'});
 
-        try {
-            const res = await fetch('http://localhost:11434/api/generate', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({model: 'mistral:7b', prompt: this.prompt, stream: false, format: 'json'})
-            });
+    this.loading = true;
 
-            const data = await res.json();
+    try {
+      const res = await fetch('http://localhost:11434/api/generate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          model: 'mistral:7b',
+          prompt: `${this.prompt}\n\n${this.instructions}`,
+          stream: false
+        })
+      });
 
-            this.messageChange.emit({role: 'assistant', content: data.response || '[No response]'});
-        } catch (e) {
-            this.messageChange.emit({role: 'assistant', content: 'Error: Unable to reach Ollama API.'});
-        } finally {
-            this.prompt = '';
-            this.loading = false;
-        }
+      const data = await res.json();
+
+      this.messageChange.emit({
+        role: 'assistant',
+        content: {answer: data.response || '[No response]'},
+        format: 'markdown'
+      });
+    } catch (e) {
+      this.messageChange.emit({
+        role: 'assistant',
+        content: {answer: 'Error: Unable to reach Ollama API.'},
+        format: 'text'
+      });
+    } finally {
+      this.prompt = '';
+      this.loading = false;
     }
+  }
 }
