@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ChatComponent} from './chat.component';
 import {ChatMessage, ChatResult} from "./models";
@@ -12,6 +12,9 @@ import hljs from 'highlight.js';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
+
+  @ViewChild('chatContainer') private chatContainer: ElementRef | undefined;
+
   messages: ChatResult[] = [];
 
   ngOnInit() {
@@ -26,6 +29,14 @@ export class AppComponent implements OnInit {
     }));
   }
 
+  private scrollToBottom(): void {
+    if (!this.chatContainer) return;
+    this.chatContainer.nativeElement.scrollTo({
+      top: this.chatContainer.nativeElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
   onMessageChange(message: ChatMessage) {
     const content = message.format === 'markdown'
       ? marked(message.content.answer) as string
@@ -35,5 +46,8 @@ export class AppComponent implements OnInit {
       role: message.role,
       content
     });
+
+    // Scroll to bottom after adding a new message
+    setTimeout(() => this.scrollToBottom(), 0);
   }
 }
