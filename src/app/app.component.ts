@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
-import { ChatComponent } from './chat.component';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ChatComponent} from './chat.component';
+import {ChatMessage} from "./models";
 
 @Component({
-  selector: 'app-root',
-  imports: [ChatComponent],
-  templateUrl: './app.component.html',
-  styles: [],
+    selector: 'app-root',
+    imports: [CommonModule, ChatComponent],
+    templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'ollama-api';
+    messages: ChatMessage[] = [];
+
+    onMessageChange(message: ChatMessage) {
+        this.messages.push(message);
+    }
 }
