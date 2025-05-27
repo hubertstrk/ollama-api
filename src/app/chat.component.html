@@ -1,14 +1,16 @@
 <div class="flex flex-col h-full bg-gray-50">
-  <div class="flex-1 overflow-y-auto px-2 py-3">
-    <div *ngIf="loading" class="flex justify-center items-center mt-4">
+  <div class="flex-1 overflow-y-auto">
+    <div *ngIf="loading" class="flex justify-center items-center p-4">
       <span class="loader mr-2"></span> <span>Loading...</span>
     </div>
   </div>
   <form (ngSubmit)="sendMessage()" class="shrink-0 bg-white flex gap-2 border-t p-2">
-    <input [(ngModel)]="prompt" autocomplete="off" class="flex-1 border rounded focus:outline-none focus:ring"
+    <input [(ngModel)]="prompt" autocomplete="off"
+           class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-400 hover:border-gray-400"
            name="prompt" placeholder="Type your message..."
            required/>
-    <button [disabled]="loading || !prompt.trim()" class="bg-zinc-600 text-white rounded disabled:opacity-50"
+    <button [disabled]="loading || !prompt.trim()"
+            class="bg-zinc-600 text-white rounded disabled:opacity-50"
             type="submit">Send
     </button>
   </form>

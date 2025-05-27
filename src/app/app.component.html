@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col min-h-screen">
   <header class="bg-zinc-700 text-white text-xl p-3">Ollama Chat</header>
-  <main class="flex-1">
+  <main class="flex-1 p-3">
     <div *ngFor="let msg of messages" [ngClass]="msg.role === 'user' ? 'text-right' : 'text-left'">
       <div [ngClass]="msg.role === 'user' ? 'bg-blue-100 text-blue-900 ml-auto' : 'bg-gray-200 text-gray-900 mr-auto'"
            class="inline-block rounded px-3 py-2 mb-2 max-w-[80%]">
