@@ -1,7 +1,7 @@
-<div class="flex flex-col h-screen max-h-screen bg-gray-50">
-  <div class="flex-1 overflow-y-auto p-4 space-y-4">
+<div class="flex flex-col bg-gray-50">
+  <div class="flex-1 overflow-y-auto">
     <div *ngFor="let msg of messages" [ngClass]="msg.role === 'user' ? 'text-right' : 'text-left'">
-      <div [ngClass]="msg.role === 'user' ? 'bg-blue-100 text-blue-900 ml-auto' : 'bg-gray-200 text-gray-900 mr-auto'" class="inline-block rounded px-4 py-2 max-w-xl">
+      <div [ngClass]="msg.role === 'user' ? 'bg-blue-100 text-blue-900 ml-auto' : 'bg-gray-200 text-gray-900 mr-auto'" class="inline-block rounded">
         {{ msg.content }}
       </div>
     </div>
@@ -9,8 +9,8 @@
       <span class="loader mr-2"></span> <span>Loading...</span>
     </div>
   </div>
-  <form (ngSubmit)="sendMessage()" class="p-4 bg-white flex gap-2 border-t">
-    <input [(ngModel)]="prompt" name="prompt" required autocomplete="off" placeholder="Type your message..." class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring" />
-    <button type="submit" [disabled]="loading || !prompt.trim()" class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50">Send</button>
+  <form (ngSubmit)="sendMessage()" class="bg-white flex gap-2 border-t">
+    <input [(ngModel)]="prompt" name="prompt" required autocomplete="off" placeholder="Type your message..." class="flex-1 border rounded focus:outline-none focus:ring" />
+    <button type="submit" [disabled]="loading || !prompt.trim()" class="bg-zinc-600 text-white rounded disabled:opacity-50">Send</button>
   </form>
 </div>
