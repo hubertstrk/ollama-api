@@ -1,6 +1,9 @@
 <div class="w-full flex flex-col h-screen">
-  <header class="bg-zinc-700 text-white text-xl p-3">Ollama Chat</header>
-  <main #chatContainer class="flex-1 p-3 overflow-y-auto" style="height: calc(100vh - 120px);">
+  <header class="fixed top-0 left-0 right-0 z-[9999] bg-transparent backdrop-blur-sm text-black text-xl p-3">
+    Ollama Chat
+  </header>
+
+  <main #chatContainer class="flex-1 p-3 overflow-y-auto pt-12" style="height: calc(100vh - 132px);">
     <div *ngFor="let msg of messages" class="rounded-lg" [ngClass]="msg.role === 'user' ? 'text-right' : 'text-left'">
       <div [ngClass]="msg.role === 'user' ? 'bg-blue-100 text-blue-900 ml-auto' : 'bg-gray-300 text-gray-900 mr-auto'"
            class="prose prose-lg rounded-lg inline-block px-3 py-2 mb-2 max-w-[80%]"
@@ -8,6 +11,7 @@
       </div>
     </div>
   </main>
+
   <footer class="w-full bg-white">
     <app-chat (messageChange)="onMessageChange($event)"/>
   </footer>
